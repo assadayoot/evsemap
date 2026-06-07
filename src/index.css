@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* Ensure Google Places Autocomplete dropdown appears above bottom sheet */
+.pac-container {
+  z-index: 9999 !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, 'Segoe UI', sans-serif;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+}
+
+html.fs-small  { font-size: 12px; }
+html.fs-medium { font-size: 14px; }
+html.fs-large  { font-size: 17px; }
+html.fs-xlarge { font-size: 20px; }
