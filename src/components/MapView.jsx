@@ -76,8 +76,8 @@ function makeEndpointIcon(color) {
 
 const USER_LOCATION_ICON = (() => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="40" viewBox="0 0 28 40">
-    <circle cx="14" cy="14" r="13" fill="#dc2626" stroke="white" stroke-width="2"/>
-    <circle cx="14" cy="14" r="6" fill="white" fill-opacity="0.4"/>
+    <circle cx="14" cy="14" r="13" fill="white" stroke="#dc2626" stroke-width="3"/>
+    <circle cx="14" cy="14" r="6" fill="#22c55e"/>
     <line x1="14" y1="27" x2="14" y2="40" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
   </svg>`
   return `data:image/svg+xml;base64,${btoa(svg)}`

@@ -20,7 +20,7 @@ const MOCK = {
     content: <AdSlot n={1} bg="bg-gradient-to-r from-blue-500 to-indigo-600" />,
   },
   station_card: {
-    h: 'h-[100px]',
+    h: 'h-[50px]',
     fit: 'object-fill',
     content: <AdSlot n={2} bg="bg-gradient-to-r from-amber-400 to-orange-500" />,
   },
