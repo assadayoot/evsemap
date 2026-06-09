@@ -163,7 +163,7 @@ export default function StationCard({ station, onClose, onRouteToHere, operators
             <img
               src={operatorsMap[operatorKey].logo_url}
               alt={operatorDisplayName}
-              className="h-6 max-w-[80px] object-contain"
+              className="h-12 max-w-[160px] object-contain"
             />
           ) : (
             <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${getOperatorColor(operator)}`}>

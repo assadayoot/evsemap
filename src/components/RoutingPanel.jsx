@@ -543,10 +543,10 @@ function StationRow({ station, isExpanded, onToggle, onNavigate, t, lang, operat
     <div className="border-b border-gray-100 dark:border-gray-800 last:border-0">
       <button
         onClick={onToggle}
-        className="w-full px-4 py-2.5 flex items-start gap-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+        className="w-full px-4 py-2.5 flex items-center gap-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
       >
         {operatorsMap[operatorKey]?.logo_url
-          ? <img src={operatorsMap[operatorKey].logo_url} alt={operatorDisplayName} className="w-7 h-7 object-contain flex-shrink-0 rounded mt-0.5" />
+          ? <img src={operatorsMap[operatorKey].logo_url} alt={operatorDisplayName} className="w-14 h-14 object-contain flex-shrink-0 rounded" />
           : <span className="text-base mt-0.5 flex-shrink-0">⚡</span>
         }
         <div className="flex-1 min-w-0">

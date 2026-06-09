@@ -1,5 +1,14 @@
 import { useTranslation } from '../contexts/LanguageContext'
 
+const USER_LOCATION_ICON = (() => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="40" viewBox="0 0 28 40">
+    <circle cx="14" cy="14" r="13" fill="white" stroke="#dc2626" stroke-width="3"/>
+    <circle cx="14" cy="14" r="6" fill="#22c55e"/>
+    <line x1="14" y1="27" x2="14" y2="40" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>`
+  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(svg)))}`
+})()
+
 const STATION_PIN_ICON = (() => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
     <path d="M16 0C9.37 0 4 5.37 4 12c0 9 12 28 12 28S28 21 28 12C28 5.37 22.63 0 16 0Z" fill="#22c55e"/>
@@ -30,9 +39,9 @@ const HELP = {
         body: 'กดที่หมุดสีบนแผนที่เพื่อดูรายละเอียด ได้แก่ ชื่อสถานี ผู้ให้บริการ จำนวนเครื่องชาร์จ และประเภทหัวชาร์จ (Connectors) ที่มีให้บริการ',
       },
       {
-        icon: '📍',
+        icon: USER_LOCATION_ICON,
         title: 'ดูตำแหน่งของฉัน',
-        body: 'กดปุ่ม "ตำแหน่งของฉัน" ที่ header แผนที่จะเลื่อนมาที่ตำแหน่งปัจจุบันและปักหมุดสีแดงไว้บนแผนที่ หมุดนี้จะถูกใช้เป็นจุดเริ่มต้นอัตโนมัติเมื่อเปิดโหมดนำทาง',
+        body: 'กดปุ่ม "ตำแหน่งของฉัน" ที่ header แผนที่จะเลื่อนมาที่ตำแหน่งปัจจุบันและปักหมุดสีขาวขอบแดงวงในเขียวไว้บนแผนที่ หมุดนี้จะถูกใช้เป็นจุดเริ่มต้นอัตโนมัติเมื่อเปิดโหมดนำทาง',
       },
       {
         icon: '🗺️',
@@ -42,7 +51,7 @@ const HELP = {
     ],
     btnsTitle: 'คำอธิบายปุ่ม',
     buttons: [
-      { symbol: '📍', label: 'ตำแหน่งของฉัน', desc: 'แสดงตำแหน่งปัจจุบันบนแผนที่ด้วยหมุดสีแดง และจดจำพิกัดไว้ใช้กับโหมดนำทาง' },
+      { symbol: USER_LOCATION_ICON, label: 'ตำแหน่งของฉัน', desc: 'แสดงตำแหน่งปัจจุบันบนแผนที่ด้วยหมุดสีขาวขอบแดงวงในเขียว และจดจำพิกัดไว้ใช้กับโหมดนำทาง' },
       { symbol: '🗺️', label: 'นำทาง', desc: 'เปิดโหมดวางแผนเส้นทาง มีปุ่ม GPS และปุ่มแผนที่สำหรับเลือกจุดเริ่มต้น/จุดหมาย' },
       { symbol: 'TH/EN', label: 'ภาษา', desc: 'สลับภาษาการแสดงผลระหว่างภาษาไทยและภาษาอังกฤษ' },
       { symbol: '☀️/🌙', label: 'โหมด', desc: 'สลับโหมดแสงสว่าง (Light) และโหมดมืด (Dark)' },
@@ -72,9 +81,9 @@ const HELP = {
         body: 'Tap a colored pin on the map to see station details: name, operator, number of chargers, and available connector types.',
       },
       {
-        icon: '📍',
+        icon: USER_LOCATION_ICON,
         title: 'My Location',
-        body: 'Tap "My Location" in the header to pan the map to your current position and drop a red pin. This pin is automatically reused as the start point when you open Navigate mode.',
+        body: 'Tap "My Location" in the header to pan the map to your current position and drop a white pin with red border and green center. This pin is automatically reused as the start point when you open Navigate mode.',
       },
       {
         icon: '🗺️',
@@ -84,7 +93,7 @@ const HELP = {
     ],
     btnsTitle: 'Button Reference',
     buttons: [
-      { symbol: '📍', label: 'My Location', desc: 'Drops a red pin at your current location and saves coordinates for Navigate mode' },
+      { symbol: USER_LOCATION_ICON, label: 'My Location', desc: 'Drops a white pin (red border, green center) at your current location and saves coordinates for Navigate mode' },
       { symbol: '🗺️', label: 'Navigate', desc: 'Opens route planning panel with GPS and Map buttons for setting origin and destination' },
       { symbol: 'TH/EN', label: 'Language', desc: 'Switch display language between Thai and English' },
       { symbol: '☀️/🌙', label: 'Theme', desc: 'Toggle between light mode and dark mode' },
@@ -154,7 +163,9 @@ export default function HelpModal({ onClose }) {
               {h.buttons.map((btn, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="flex-shrink-0 w-10 h-7 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xs font-bold text-gray-700 dark:text-gray-200">
-                    {btn.symbol}
+                    {typeof btn.symbol === 'string' && btn.symbol.startsWith('data:')
+                      ? <img src={btn.symbol} alt="" className="w-4 h-6" />
+                      : btn.symbol}
                   </span>
                   <div>
                     <span className="text-xs font-semibold text-gray-700 dark:text-gray-200">{btn.label}</span>
