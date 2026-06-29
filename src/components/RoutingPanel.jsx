@@ -5,7 +5,7 @@ import { useDraggable } from '../hooks/useDraggable'
 import { useTranslation } from '../contexts/LanguageContext'
 import { useRouteRateLimit, ROUTE_LIMIT } from '../hooks/useRouteRateLimit'
 import { useRouteLog } from '../hooks/useRouteLog'
-import { getRecaptchaToken, recaptchaEnabled } from '../utils/recaptcha'
+import { getRecaptchaToken, verifyRecaptcha, recaptchaEnabled } from '../utils/recaptcha'
 import AdBanner from './AdBanner'
 
 function doGeocode(lat, lng, cb) {
@@ -174,10 +174,19 @@ export default function RoutingPanel({
     setError(null)
 
     // ── reCAPTCHA v3 (invisible) ──────────────────────────────────────
+    // Generate a token AND verify it on the backend. Verification is the part
+    // that actually protects the site — a token that is never checked does
+    // nothing (this is what Google's "you aren't protected" warning meant).
     if (recaptchaEnabled) {
       const token = await getRecaptchaToken('find_route')
-      if (!token) {
-        setError('ไม่สามารถยืนยันตัวตนได้ กรุณาลองใหม่อีกครั้ง')
+      const result = await verifyRecaptcha(token, 'find_route')
+      if (!result.ok) {
+        if (result.error === 'rate_limited') {
+          const mins = Math.max(1, Math.ceil((result.retryAfterSecs ?? 0) / 60))
+          setError(`ถึงขีดจำกัดการใช้งานแล้ว กรุณารออีก ${mins} นาที`)
+        } else {
+          setError('ไม่สามารถยืนยันตัวตนได้ กรุณาลองใหม่อีกครั้ง')
+        }
         return
       }
     }

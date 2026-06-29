@@ -15,6 +15,10 @@ dist-ssr
 "- Copy.env"
 - Copy.env
 
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
